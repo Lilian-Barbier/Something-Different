@@ -1,1 +1,7 @@
 Animated Characters 2 (1.1) - Created/distributed by Kenney (www.kenney.nl)
+Prototype Textures 1.0 - Created/distributed by Kenney (www.kenney.nl)
+
+En général : https://docs.unity3d.com/
+
+Tuto : 
+https://www.youtube.com/watch?v=5n_hmqHdijM

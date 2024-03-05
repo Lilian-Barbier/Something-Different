@@ -5,9 +5,16 @@ public class InputManager : Singleton<InputManager>
 {
     public Controls inputActions;
 
+    //Declaration of delegates methods for events subscription
+    public delegate void playerInteract();
+
+    //Declaration of events
+    public event playerInteract playerInteractEvent;
+
     void Awake()
     {
         inputActions = new Controls();
+        inputActions.Movement.Interact.performed += ctx => playerInteractEvent?.Invoke();
     }
 
     private void OnEnable()

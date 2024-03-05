@@ -1,11 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
-
-
-//Credits :
-// based on https://docs.unity3d.com/ScriptReference/CharacterController.Move.html
 
 [RequireComponent(typeof(CharacterController))]
 public class CharacterMovement : MonoBehaviour
@@ -16,6 +10,7 @@ public class CharacterMovement : MonoBehaviour
     private float gravityValue = -9.81f;
 
     private Transform cameraTransform;
+    private Animator animatorController;
 
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
@@ -25,11 +20,16 @@ public class CharacterMovement : MonoBehaviour
     {
         controller = gameObject.GetComponent<CharacterController>();
         cameraTransform = Camera.main.transform;
+        animatorController = GetComponentInChildren<Animator>();
     }
     
     void Update()
     {
+        if(groundedPlayer != controller.isGrounded && controller.isGrounded)
+            animatorController.SetBool("IsJumping", false);
+
         groundedPlayer = controller.isGrounded;
+        
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
@@ -38,8 +38,14 @@ public class CharacterMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
 
         Vector2 movement = InputManager.Instance.GetMovement();
+
+        if(movement.magnitude > 0)
+            animatorController.SetBool("IsRunning", true);
+        else
+            animatorController.SetBool("IsRunning", false);
+
         Vector3 move = new(movement.x, 0, movement.y);
-        move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
+        move = transform.forward * move.z + cameraTransform.right * move.x;
         move.y = 0;
 
         controller.Move(playerSpeed * Time.deltaTime * move);
@@ -48,6 +54,7 @@ public class CharacterMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            animatorController.SetBool("IsJumping", true);
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;

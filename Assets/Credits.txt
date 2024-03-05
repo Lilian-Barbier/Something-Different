@@ -4,4 +4,5 @@ Prototype Textures 1.0 - Created/distributed by Kenney (www.kenney.nl)
 En général : https://docs.unity3d.com/
 
 Tuto : 
-https://www.youtube.com/watch?v=5n_hmqHdijM
+FPS Control : https://www.youtube.com/watch?v=5n_hmqHdijM
+Dithering shader : https://www.youtube.com/watch?v=k9g2LaBrirI

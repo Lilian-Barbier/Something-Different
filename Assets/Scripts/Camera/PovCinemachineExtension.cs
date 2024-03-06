@@ -26,10 +26,13 @@ public class PovCinemachineExtension : CinemachineExtension
                 if (startingRotation == null)
                     startingRotation = transform.localRotation.eulerAngles;
 
-                Vector2 deltaInput = inputManager.GetMouseDelta();
-                startingRotation.x -= deltaInput.x * horizontalSpeed * Time.deltaTime;
-                startingRotation.y += deltaInput.y * verticalSpeed * Time.deltaTime;
-                startingRotation.y = Mathf.Clamp(startingRotation.y, -clampAngle, clampAngle);
+                if(inputManager.interactionState == InputManager.InteractionState.Nothing){
+                    Vector2 deltaInput = inputManager.GetMouseDelta();
+                    startingRotation.x -= deltaInput.x * horizontalSpeed * Time.deltaTime;
+                    startingRotation.y += deltaInput.y * verticalSpeed * Time.deltaTime;
+                    startingRotation.y = Mathf.Clamp(startingRotation.y, -clampAngle, clampAngle);
+                }
+                
                 state.RawOrientation = Quaternion.Euler(-startingRotation.y, -startingRotation.x, 0f);
             }
         }

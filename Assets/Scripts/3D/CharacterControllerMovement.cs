@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class CharacterMovement : MonoBehaviour
 {
+
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -35,30 +36,32 @@ public class CharacterMovement : MonoBehaviour
             playerVelocity.y = 0f;
         }
 
-        transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
+        if(InputManager.Instance.interactionState == InputManager.InteractionState.Nothing){
+            transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
 
-        Vector2 movement = InputManager.Instance.GetMovement();
+            Vector2 movement = InputManager.Instance.GetMovement();
 
-        if(movement.magnitude > 0)
-            animatorController.SetBool("IsRunning", true);
-        else
-            animatorController.SetBool("IsRunning", false);
+            if(movement.magnitude > 0)
+                animatorController.SetBool("IsRunning", true);
+            else
+                animatorController.SetBool("IsRunning", false);
 
-        Vector3 move = new(movement.x, 0, movement.y);
-        move = transform.forward * move.z + cameraTransform.right * move.x;
-        move.y = 0;
+            Vector3 move = new(movement.x, 0, movement.y);
+            move = transform.forward * move.z + cameraTransform.right * move.x;
+            move.y = 0;
 
-        controller.Move(playerSpeed * Time.deltaTime * move);
-        
-        // Changes the height position of the player..
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-            animatorController.SetBool("IsJumping", true);
+            controller.Move(playerSpeed * Time.deltaTime * move);
+            
+            // Changes the height position of the player..
+            if (Input.GetButtonDown("Jump") && groundedPlayer)
+            {
+                playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+                animatorController.SetBool("IsJumping", true);
+            }
+
+            playerVelocity.y += gravityValue * Time.deltaTime;
+            controller.Move(playerVelocity * Time.deltaTime);   
         }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
     }
 }
 

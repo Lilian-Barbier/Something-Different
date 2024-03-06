@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class InputManager : Singleton<InputManager>
 {
+    public enum InteractionState
+    {
+        Nothing,
+        OpenDoor,
+        TakePhoto
+    }
+
+    public InteractionState interactionState = InteractionState.Nothing;
     public Controls inputActions;
 
     //Declaration of delegates methods for events subscription
@@ -36,4 +44,6 @@ public class InputManager : Singleton<InputManager>
     {
         return inputActions.Movement.Look.ReadValue<Vector2>();
     }
+
+
 }

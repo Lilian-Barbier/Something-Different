@@ -407,7 +407,6 @@ GameObject:
   - component: {fileID: 357034188}
   - component: {fileID: 357034187}
   - component: {fileID: 357034186}
-  - component: {fileID: 357034185}
   m_Layer: 0
   m_Name: DoorModel
   m_TagString: Door
@@ -415,27 +414,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &357034185
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 357034184}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &357034186
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -639,9 +617,10 @@ GameObject:
   m_Component:
   - component: {fileID: 416387981}
   - component: {fileID: 416387982}
+  - component: {fileID: 416387983}
   m_Layer: 0
   m_Name: DoorPivot
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -655,7 +634,7 @@ Transform:
   m_GameObject: {fileID: 416387980}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.14, y: 3.06, z: -2.25}
+  m_LocalPosition: {x: -10.27, y: 3.06, z: -2.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -674,10 +653,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc9561915766404ebf6b75714d4dd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOpen: 0
-  doorOpenAngle: 90
+  maxDoorAngle: 90
   doorCloseAngle: 0
   currentDoorAngle: 0
+--- !u!65 &416387983
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416387980}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.14733696, y: 5.133168, z: 2.2842956}
+  m_Center: {x: 0.017026901, y: 0.0040125847, z: 1.0594773}
 --- !u!4 &428805978 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1933314137475268787, guid: 3fbfb3ca7d1322740a9ef02eea439306,
@@ -2233,7 +2232,6 @@ GameObject:
   - component: {fileID: 1085379366}
   - component: {fileID: 1085379365}
   - component: {fileID: 1085379364}
-  - component: {fileID: 1085379363}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Door
@@ -2241,27 +2239,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!135 &1085379363
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1085379362}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1085379364
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2615,6 +2592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionDistance: 2
+  doorOpeningSpeed: 2
 --- !u!4 &1341836929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1566011436469932946, guid: 3fbfb3ca7d1322740a9ef02eea439306,

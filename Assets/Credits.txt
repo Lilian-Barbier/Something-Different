@@ -6,3 +6,6 @@ En général : https://docs.unity3d.com/
 Tuto : 
 FPS Control : https://www.youtube.com/watch?v=5n_hmqHdijM
 Dithering shader : https://www.youtube.com/watch?v=k9g2LaBrirI
+
+
+A checker : https://docs.unity3d.com/Packages/com.unity.cinemachine@3.0/manual/InputSystemComponents.html

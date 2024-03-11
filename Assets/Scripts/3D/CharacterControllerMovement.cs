@@ -1,5 +1,6 @@
 using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class CharacterMovement : MonoBehaviour
@@ -13,35 +14,39 @@ public class CharacterMovement : MonoBehaviour
     private Transform cameraTransform;
     private Animator animatorController;
 
-    [SerializeField] private float playerSpeed = 2.0f;
+    [SerializeField] private float playerSpeed = 1.0f;
+    [SerializeField] private float playerRunSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
 
+    InputManager inputManager;
 
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
         cameraTransform = Camera.main.transform;
         animatorController = GetComponentInChildren<Animator>();
+        inputManager = InputManager.Instance;
     }
-    
+
     void Update()
     {
-        if(groundedPlayer != controller.isGrounded && controller.isGrounded)
+        if (groundedPlayer != controller.isGrounded && controller.isGrounded)
             animatorController.SetBool("IsJumping", false);
 
         groundedPlayer = controller.isGrounded;
-        
+
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
         }
 
-        if(InputManager.Instance.interactionState == InputManager.InteractionState.Nothing){
+        if (inputManager.interactionState == InputManager.InteractionState.Nothing)
+        {
             transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
 
-            Vector2 movement = InputManager.Instance.GetMovement();
+            Vector2 movement = inputManager.GetMovement();
 
-            if(movement.magnitude > 0)
+            if (movement.magnitude > 0)
                 animatorController.SetBool("IsRunning", true);
             else
                 animatorController.SetBool("IsRunning", false);
@@ -50,8 +55,8 @@ public class CharacterMovement : MonoBehaviour
             move = transform.forward * move.z + cameraTransform.right * move.x;
             move.y = 0;
 
-            controller.Move(playerSpeed * Time.deltaTime * move);
-            
+            controller.Move((inputManager.IsRunning ? playerRunSpeed : playerSpeed) * Time.deltaTime * move);
+
             // Changes the height position of the player..
             if (Input.GetButtonDown("Jump") && groundedPlayer)
             {
@@ -60,7 +65,7 @@ public class CharacterMovement : MonoBehaviour
             }
 
             playerVelocity.y += gravityValue * Time.deltaTime;
-            controller.Move(playerVelocity * Time.deltaTime);   
+            controller.Move(playerVelocity * Time.deltaTime);
         }
     }
 }

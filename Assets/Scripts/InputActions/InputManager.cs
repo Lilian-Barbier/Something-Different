@@ -15,14 +15,37 @@ public class InputManager : Singleton<InputManager>
 
     //Declaration of delegates methods for events subscription
     public delegate void playerInteract();
+    public delegate void playerLookInCamera();
+    public delegate void playerUnLookInCamera();
 
     //Declaration of events
     public event playerInteract playerInteractEvent;
+    public event playerLookInCamera playerLookInCameraEvent;
+    public event playerUnLookInCamera playerUnLookInCameraEvent;
+
+    public bool IsLookingInCamera = false;
+    public bool IsRunning = false;
 
     void Awake()
     {
         inputActions = new Controls();
+
         inputActions.Movement.Interact.performed += ctx => playerInteractEvent?.Invoke();
+        inputActions.Movement.LookInCamera.started += ctx =>
+        {
+            IsLookingInCamera = true;
+            playerLookInCameraEvent?.Invoke();
+        };
+
+        inputActions.Movement.LookInCamera.canceled += ctx =>
+        {
+            IsLookingInCamera = false;
+            playerUnLookInCameraEvent?.Invoke();
+        };
+
+        inputActions.Movement.Run.started += ctx => IsRunning = true;
+        inputActions.Movement.Run.canceled += ctx => IsRunning = false;
+
     }
 
     private void OnEnable()

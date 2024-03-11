@@ -53,6 +53,42 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LookInCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""66e3f0cb-1e50-47cf-b37e-1d40cb47f726"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba8425fe-680f-44b3-ba09-b33459d807f2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""916633e6-0ef3-4fd2-8b50-fb948c81ed79"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LieDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""4832ba53-125a-4cac-8e62-f4e1de1bb692"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -154,6 +190,50 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ce6ba90-b9d6-4bb3-a3fa-3a12736ac428"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LookInCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""001b3ffc-021f-480c-a0d9-2d44c3c7869e"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6f57227-949c-4807-99f7-d160454c1795"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60bda554-7554-40cf-a373-88646b414671"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LieDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -165,6 +245,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
         m_Movement_Look = m_Movement.FindAction("Look", throwIfNotFound: true);
         m_Movement_Interact = m_Movement.FindAction("Interact", throwIfNotFound: true);
+        m_Movement_LookInCamera = m_Movement.FindAction("LookInCamera", throwIfNotFound: true);
+        m_Movement_Crouch = m_Movement.FindAction("Crouch", throwIfNotFound: true);
+        m_Movement_Run = m_Movement.FindAction("Run", throwIfNotFound: true);
+        m_Movement_LieDown = m_Movement.FindAction("LieDown", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,6 +313,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_Move;
     private readonly InputAction m_Movement_Look;
     private readonly InputAction m_Movement_Interact;
+    private readonly InputAction m_Movement_LookInCamera;
+    private readonly InputAction m_Movement_Crouch;
+    private readonly InputAction m_Movement_Run;
+    private readonly InputAction m_Movement_LieDown;
     public struct MovementActions
     {
         private @Controls m_Wrapper;
@@ -236,6 +324,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Movement_Move;
         public InputAction @Look => m_Wrapper.m_Movement_Look;
         public InputAction @Interact => m_Wrapper.m_Movement_Interact;
+        public InputAction @LookInCamera => m_Wrapper.m_Movement_LookInCamera;
+        public InputAction @Crouch => m_Wrapper.m_Movement_Crouch;
+        public InputAction @Run => m_Wrapper.m_Movement_Run;
+        public InputAction @LieDown => m_Wrapper.m_Movement_LieDown;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -254,6 +346,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @LookInCamera.started += instance.OnLookInCamera;
+            @LookInCamera.performed += instance.OnLookInCamera;
+            @LookInCamera.canceled += instance.OnLookInCamera;
+            @Crouch.started += instance.OnCrouch;
+            @Crouch.performed += instance.OnCrouch;
+            @Crouch.canceled += instance.OnCrouch;
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
+            @LieDown.started += instance.OnLieDown;
+            @LieDown.performed += instance.OnLieDown;
+            @LieDown.canceled += instance.OnLieDown;
         }
 
         private void UnregisterCallbacks(IMovementActions instance)
@@ -267,6 +371,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @LookInCamera.started -= instance.OnLookInCamera;
+            @LookInCamera.performed -= instance.OnLookInCamera;
+            @LookInCamera.canceled -= instance.OnLookInCamera;
+            @Crouch.started -= instance.OnCrouch;
+            @Crouch.performed -= instance.OnCrouch;
+            @Crouch.canceled -= instance.OnCrouch;
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
+            @LieDown.started -= instance.OnLieDown;
+            @LieDown.performed -= instance.OnLieDown;
+            @LieDown.canceled -= instance.OnLieDown;
         }
 
         public void RemoveCallbacks(IMovementActions instance)
@@ -289,5 +405,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnLookInCamera(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
+        void OnLieDown(InputAction.CallbackContext context);
     }
 }

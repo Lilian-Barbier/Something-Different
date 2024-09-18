@@ -15,6 +15,7 @@ public class PovCinemachineExtension : CinemachineExtension
     {
         inputManager = InputManager.Instance;
         base.Awake();
+        Cursor.visible = false;
     }
 
     protected override void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, CinemachineCore.Stage stage, ref CameraState state, float deltaTime)
